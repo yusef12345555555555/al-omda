@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Ambient glowing text */
+  .text-glow-amber {
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.5), 0 0 40px rgba(217, 119, 6, 0.2);
+  }
+  .text-glow-fire {
+    text-shadow: 0 0 15px rgba(239, 68, 68, 0.6), 0 0 35px rgba(245, 158, 11, 0.4);
+  }
+  .text-glow-gold {
+    text-shadow: 0 0 25px rgba(251, 191, 36, 0.6), 0 0 50px rgba(217, 119, 6, 0.3);
+  }
+  .box-glow-amber {
+    box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.35), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+  }
+  .box-glow-flame {
+    box-shadow: 0 0 45px -5px rgba(239, 68, 68, 0.4), 0 0 25px 0 rgba(245, 158, 11, 0.3);
+  }
+  .box-glow-emerald {
+    box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.5), 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+  }
+  .glass-panel {
+    background: rgba(28, 25, 23, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+  }
+  .glass-panel-gold {
+    background: linear-gradient(135deg, rgba(38, 30, 23, 0.85) 0%, rgba(20, 16, 12, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+}
+
+/* Keyframe animations for continuous subtle movement */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(7px) rotate(-1.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes lightSweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
+@keyframes heatWave {
+  0%, 100% {
+    filter: blur(0.5px) brightness(1);
+    transform: scaleY(1);
+  }
+  50% {
+    filter: blur(1.2px) brightness(1.08);
+    transform: scaleY(1.02);
+  }
+}
+
+@keyframes smokeRise {
+  0% {
+    opacity: 0;
+    transform: translateY(0px) scale(0.8) rotate(0deg);
+  }
+  40% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.6) rotate(20deg);
+  }
+}
+
+@keyframes emberFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0px) translateX(0px) scale(0.5);
+  }
+  30% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) translateX(25px) scale(1.2);
+  }
+}
+
+@keyframes shimmerText {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 16px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-heat-wave {
+  animation: heatWave 3.5s ease-in-out infinite;
+}
+
+.animate-ring-pulse {
+  animation: ringPulse 2.5s infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #d97706 0%, #fef3c7 50%, #d97706 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmerText 4s linear infinite;
+}
+
+/* Custom radial background patterns */
+.bg-radial-hero {
+  background: radial-gradient(circle at 50% 35%, rgba(180, 83, 9, 0.22) 0%, rgba(69, 26, 3, 0.12) 40%, rgba(12, 10, 9, 0.98) 80%);
+}
+
+.bg-radial-grill {
+  background: radial-gradient(circle at 50% 20%, rgba(220, 38, 38, 0.2) 0%, rgba(120, 53, 15, 0.15) 45%, rgba(12, 10, 9, 0.98) 85%);
+}
+
+.bg-radial-meal {
+  background: radial-gradient(circle at 50% 30%, rgba(217, 119, 6, 0.22) 0%, rgba(146, 64, 14, 0.1) 50%, rgba(12, 10, 9, 0.98) 90%);
+}
+
+.bg-radial-sandwiches {
+  background: radial-gradient(circle at 50% 25%, rgba(234, 88, 12, 0.22) 0%, rgba(154, 52, 18, 0.12) 45%, rgba(12, 10, 9, 0.98) 85%);
+}
+
+.bg-radial-platters {
+  background: radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.15) 0%, rgba(180, 83, 9, 0.18) 50%, rgba(12, 10, 9, 0.98) 90%);
+}
+
+.bg-radial-mixes {
+  background: radial-gradient(circle at 50% 25%, rgba(245, 158, 11, 0.22) 0%, rgba(13, 148, 136, 0.12) 50%, rgba(12, 10, 9, 0.98) 85%);
+}
+
+.bg-radial-settlements {
+  background: radial-gradient(circle at 50% 25%, rgba(180, 83, 9, 0.25) 0%, rgba(120, 53, 15, 0.18) 50%, rgba(12, 10, 9, 0.98) 85%);
+}
+
+.bg-radial-additions {
+  background: radial-gradient(circle at 50% 20%, rgba(34, 197, 94, 0.18) 0%, rgba(217, 119, 6, 0.15) 50%, rgba(12, 10, 9, 0.98) 85%);
+}
