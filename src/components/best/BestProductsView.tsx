@@ -26,7 +26,7 @@ export const BestProductsView: React.FC<BestProductsViewProps> = ({ onOpenProduc
       <div className="relative text-center space-y-4 max-w-3xl mx-auto py-6">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-600/30 via-amber-500/20 to-amber-600/30 border border-amber-500/50 text-amber-300 text-xs sm:text-sm font-bold shadow-[0_0_20px_rgba(245,158,11,0.25)]">
           <Award className="w-4 h-4 text-amber-400" />
-          <span>{language === 'ar' ? 'توقيع الشيف والأعلى طلباً' : 'Signature Chef Selections'}</span>
+          <span>{language === 'ar' ? 'الأعلى طلباً' : 'Signature Chef Selections'}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black font-['Cairo'] text-stone-100 text-glow-gold">
@@ -35,7 +35,7 @@ export const BestProductsView: React.FC<BestProductsViewProps> = ({ onOpenProduc
 
         <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-['Cairo'] max-w-xl mx-auto">
           {language === 'ar'
-            ? 'مجموعة منتقاة من أشهى أطباق المشويات، الصواني الملوكية، والطواجن التي حازت على إعجاب وتقدير ضيوفنا الكرام.'
+            ? 'مجموعة من أشهى أطباق المشويات، الصواني ، والطواجن التي حازت على إعجاب وتقدير ضيوفنا الكرام.'
             : 'A curated ensemble of our most celebrated charcoal-grilled feasts, royal platters, and authentic masterpieces.'}
         </p>
 
