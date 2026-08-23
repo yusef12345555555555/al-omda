@@ -51,6 +51,54 @@ const PRESET_FOOD_IMAGES = [
   { name: 'مقبلات وسلطات طازجة', url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80' },
 ];
 
+// صورتان مخصصتان لكل صنف بعينه (تظهر في لوحة الإدارة كأول اختيارين سريعين لهذا الصنف تحديداً)
+const PRODUCT_IMAGE_MAP: Record<string, { name: string; url: string }[]> = {
+  'prod-grill-1': [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]], // ريش ضاني مشوية
+  'prod-grill-2': [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[2]], // طرب العمدة الملوكي
+  'prod-grill-3': [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[0]], // كباب وكفتة ضاني مشكل
+  'prod-grill-4': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[1]], // شيش طاووق
+  'prod-grill-5': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[6]], // فرخة كاملة مشوية
+  'prod-meal-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[2]], // وجبة ميكس جريل
+  'prod-meal-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]], // وجبة موزة ضاني
+  'prod-meal-3':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[8]], // وجبة كفتة حاتي
+  'prod-sand-1':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[5]], // سندوتش كفتة العمدة
+  'prod-sand-2':  [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[4]], // سندوتش طرب ضاني
+  'prod-sand-3':  [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[4]], // سندوتش كباب بتلو
+  'prod-sand-4':  [PRESET_FOOD_IMAGES[5], PRESET_FOOD_IMAGES[4]], // حواوشي بالجبنة
+  'prod-plat-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[0]], // صينية ملوك العمدة
+  'prod-plat-2':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[7]], // صينية الباشا
+  'prod-mix-1':   [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[3]], // ميكس جريل مكسيكانو
+  'prod-mix-2':   [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[6]], // ميكس السجق والكفتة
+  'prod-sett-1':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]], // طاجن لحمة بالعجين
+  'prod-sett-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طاجن عكاوي
+  'prod-sett-3':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طاجن ملوخية
+  'prod-add-1':   [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]], // أرز بسمتي فاخر
+  'prod-add-2':   [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[8]], // تشكيلة مقبلات العمدة
+  'prod-add-3':   [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طبق ممبار بلدي
+};
+
+// صورتان مقترحتان لكل قسم (تُستخدم كذلك عند إضافة صنف جديد لم يُحدَّد له صور مخصصة بعد)
+const CATEGORY_IMAGE_MAP: Record<string, { name: string; url: string }[]> = {
+  grills: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]],
+  meals: [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]],
+  sandwiches: [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[5]],
+  platters: [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[0]],
+  mixes: [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[3]],
+  settlements: [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]],
+  additions: [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]],
+};
+
+// يرجّع أفضل صورتين مناسبتين للصنف الحالي: صور مخصصة للصنف نفسه لو موجودة،
+// وإلا صور القسم اللي الصنف تابع له، وإلا القائمة العامة كاحتياطي أخير
+const getProductImagePresets = (
+  productId: string | undefined,
+  categoryId: string
+): { name: string; url: string }[] => {
+  if (productId && PRODUCT_IMAGE_MAP[productId]) return PRODUCT_IMAGE_MAP[productId];
+  if (CATEGORY_IMAGE_MAP[categoryId]) return CATEGORY_IMAGE_MAP[categoryId];
+  return PRESET_FOOD_IMAGES;
+};
+
 export const AdminDashboard: React.FC = () => {
   const {
     // نقرأ وننعدّل على "المسودة" (Draft) — لا يظهر أي تعديل للعميل إلا بعد "رفع التعديلات"
@@ -1194,23 +1242,47 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Preset Fast Picker */}
+                {/* Preset Fast Picker — صورتان مقترحتان مخصصتان لهذا الصنف تحديداً */}
                 <div>
-                  <span className="text-[11px] text-stone-400 block mb-1">أو اختر صورة جاهزة عالية الدقة:</span>
-                  <div className="flex gap-2 overflow-x-auto pb-1">
-                    {PRESET_FOOD_IMAGES.map((preset, idx) => (
+                  <span className="text-[11px] text-stone-400 block mb-1">صورتان مقترحتان لهذا الصنف تحديداً:</span>
+                  <div className="flex gap-3 pb-1">
+                    {getProductImagePresets(editingProduct?.id, productForm.categoryId).map((preset, idx) => (
                       <button
                         key={idx}
                         type="button"
                         onClick={() => setProductForm({ ...productForm, image: preset.url })}
-                        className={`relative shrink-0 w-12 h-12 rounded-xl overflow-hidden border transition ${
+                        title={preset.name}
+                        className={`relative shrink-0 w-20 h-20 rounded-xl overflow-hidden border transition ${
                           productForm.image === preset.url ? 'border-amber-400 scale-105' : 'border-stone-700 opacity-60'
                         }`}
                       >
                         <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
+                        {productForm.image === preset.url && (
+                          <span className="absolute bottom-0 inset-x-0 bg-amber-400/90 text-stone-900 text-[9px] font-bold text-center py-0.5">
+                            مُختارة
+                          </span>
+                        )}
                       </button>
                     ))}
                   </div>
+                  <details className="mt-2">
+                    <summary className="text-[10px] text-stone-500 cursor-pointer">عرض كل الصور الجاهزة (احتياطي)</summary>
+                    <div className="flex gap-2 overflow-x-auto pb-1 pt-2">
+                      {PRESET_FOOD_IMAGES.map((preset, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setProductForm({ ...productForm, image: preset.url })}
+                          title={preset.name}
+                          className={`relative shrink-0 w-12 h-12 rounded-xl overflow-hidden border transition ${
+                            productForm.image === preset.url ? 'border-amber-400 scale-105' : 'border-stone-700 opacity-60'
+                          }`}
+                        >
+                          <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  </details>
                 </div>
               </div>
 
@@ -1356,6 +1428,24 @@ export const AdminDashboard: React.FC = () => {
                         onChange={(e) => handleImageUpload(e, 'category')}
                       />
                     </label>
+                  </div>
+                </div>
+                <div>
+                  <span className="text-[11px] text-stone-400 block mb-1">أو اختر من الصورتين المقترحتين لهذا القسم:</span>
+                  <div className="flex gap-3">
+                    {(CATEGORY_IMAGE_MAP[editingCategory?.id || ''] || PRESET_FOOD_IMAGES.slice(0, 2)).map((preset, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setCategoryForm({ ...categoryForm, image: preset.url })}
+                        title={preset.name}
+                        className={`relative shrink-0 w-16 h-16 rounded-xl overflow-hidden border transition ${
+                          categoryForm.image === preset.url ? 'border-amber-400 scale-105' : 'border-stone-700 opacity-60'
+                        }`}
+                      >
+                        <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
