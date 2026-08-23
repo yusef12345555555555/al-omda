@@ -25,7 +25,7 @@ export const CategoriesView: React.FC = () => {
       <div className="text-center space-y-3 max-w-2xl mx-auto">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
           <Layers className="w-3.5 h-3.5" />
-          <span>{language === 'ar' ? 'منيو مطعم العمدة الشامل' : 'AL OMDA Full Menu Portals'}</span>
+          <span>{language === 'ar' ? 'منيو مطعم العمدة ' : 'AL OMDA Full Menu Portals'}</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black font-['Cairo'] text-stone-100">
           {language === 'ar' ? 'أقسام المأكولات والمشويات' : 'Menu Categories'}
