@@ -147,7 +147,7 @@ export const CategoryDetailView: React.FC<CategoryDetailViewProps> = ({ onOpenPr
             </h3>
             <p className="text-xs text-stone-400 max-w-md mx-auto leading-relaxed font-['Cairo']">
               {language === 'ar'
-                ? 'شيفات مطعم العمدة يعملون حالياً على تجهيز هذه الوصفات وإضافتها للمنيو بأعلى مقاييس الجودة.'
+                ? ' مطعم العمدة يعمل حالياً على تجهيز هذه الوصفات وإضافتها للمنيو بأعلى مقاييس الجودة.'
                 : 'Our master chefs are currently preparing these signature recipes to add to the menu.'}
             </p>
           </div>
