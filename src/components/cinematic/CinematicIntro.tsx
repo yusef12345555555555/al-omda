@@ -180,9 +180,16 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         {/* فينييت خفيف على الحواف لعمق إضافي */}
         <div className="absolute inset-0 pointer-events-none [box-shadow:inset_0_0_140px_60px_rgba(0,0,0,0.65)]" />
 
-   
+        {/* زر تخطي بسيط وغير مزعج */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleFinish();
+          }}
           className="absolute bottom-6 left-6 z-20 px-3.5 py-1.5 rounded-full border border-stone-700 bg-stone-900/70 text-xs text-stone-400 hover:text-amber-300 hover:border-amber-500/50 transition backdrop-blur-sm"
         >
+          تخطي المقدمة (Skip) ✕
         </button>
       </motion.div>
     </AnimatePresence>
