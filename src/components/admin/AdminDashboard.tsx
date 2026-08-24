@@ -31,6 +31,7 @@ import {
   UserCheck,
   Rocket,
   Clock3,
+  ArrowRight,
 } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 import { Product, Category, SocialMediaCard, WebsiteSettings } from '../../types';
@@ -135,15 +136,15 @@ const DISH_IMAGE_LIBRARY: { keywords: string[]; images: { name: string; url: str
   },
   {
     keywords: ['كندوز', 'كباب', 'كفتة', 'بتلو'],
-    images: [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[1]],
+    images: [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[6]],
   },
   {
     keywords: ['ريش', 'ضاني', 'لحمة', 'لحم'],
-    images: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[7]],
+    images: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]],
   },
   {
     keywords: ['صينية', 'صواني', 'ميكس', 'مشكل'],
-    images: [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[2]],
+    images: [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[3]],
   },
   {
     keywords: ['طاجن', 'تسوية', 'عكاوي', 'ملوخية', 'موزة'],
@@ -151,7 +152,7 @@ const DISH_IMAGE_LIBRARY: { keywords: string[]; images: { name: string; url: str
   },
   {
     keywords: ['ارز', 'أرز', 'رز', 'بسمتي'],
-    images: [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[7]],
+    images: [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]],
   },
   {
     keywords: ['سلطة', 'سلاطة', 'خضار'],
@@ -162,7 +163,7 @@ const DISH_IMAGE_LIBRARY: { keywords: string[]; images: { name: string; url: str
   },
   {
     keywords: ['مقبلات', 'طحينة', 'مخلل', 'بابا غنوج', 'ممبار'],
-    images: [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[8]],
+    images: [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[7]],
   },
   {
     keywords: ['مياه', 'مية', 'ماء'],
@@ -174,7 +175,7 @@ const DISH_IMAGE_LIBRARY: { keywords: string[]; images: { name: string; url: str
   {
     keywords: ['مشروب', 'عصير', 'غازية', 'كولا', 'بيبسي', 'سفن', 'كانز', 'فيوري', 'تويست'],
     images: [
-      { name: 'مشروب غازي', url: 'https://images.unsplash.com/photo-1617981291730-b989878620b8?auto=format&fit=crop&w=800&q=80' },
+      { name: 'كانز مشروب غازي', url: 'https://images.unsplash.com/photo-1546695244-22170c3ade72?auto=format&fit=crop&w=800&q=80' },
       { name: 'مياه معدنية', url: 'https://images.unsplash.com/photo-1561041695-d2fadf9f318c?auto=format&fit=crop&w=800&q=80' },
     ],
   },
@@ -278,6 +279,9 @@ export const AdminDashboard: React.FC = () => {
     prepTime: '15 دقيقة',
     calories: 500,
   });
+
+  // معرّف القسم اللي مفتوح دلوقتي في صفحة التفاصيل (يعرض أصنافه بس)
+  const [viewingCategoryId, setViewingCategoryId] = useState<string | null>(null);
 
   // Category Editing State
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -804,7 +808,212 @@ export const AdminDashboard: React.FC = () => {
       )}
 
       {/* 3. CATEGORIES MANAGEMENT TAB */}
-      {activeTab === 'categories' && (
+      {activeTab === 'categories' && (() => {
+        const viewingCategory = categories.find((c) => c.id === viewingCategoryId) || null;
+
+        // ============ صفحة تفاصيل قسم واحد (تُفتح عند الضغط على أي قسم) ============
+        if (viewingCategory) {
+          const categoryProducts = products.filter((p) => p.categoryId === viewingCategory.id);
+          return (
+            <div className="space-y-6">
+              <button
+                type="button"
+                onClick={() => setViewingCategoryId(null)}
+                className="flex items-center gap-2 text-stone-400 hover:text-amber-400 transition text-sm font-bold font-['Cairo']"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>{language === 'ar' ? 'رجوع لكل الأقسام' : 'Back to categories'}</span>
+              </button>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-3xl bg-stone-900 border border-stone-800">
+                <img
+                  src={viewingCategory.image}
+                  alt={viewingCategory.name}
+                  referrerPolicy="no-referrer"
+                  className="w-20 h-20 rounded-2xl object-cover border border-stone-700"
+                />
+                <div className="flex-1">
+                  <h2 className="text-xl font-black font-['Cairo'] text-stone-100">{viewingCategory.name}</h2>
+                  <p className="text-xs text-stone-400 mt-1 line-clamp-2 font-['Cairo']">{viewingCategory.description}</p>
+                  <div className="text-[11px] text-amber-400 font-bold mt-1">
+                    {categoryProducts.length} {language === 'ar' ? 'صنف في هذا القسم' : 'items in this category'}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditingCategory(viewingCategory);
+                    setCategoryForm({
+                      name: viewingCategory.name,
+                      nameEn: viewingCategory.nameEn || '',
+                      description: viewingCategory.description,
+                      descriptionEn: viewingCategory.descriptionEn || '',
+                      image: viewingCategory.image,
+                      background: viewingCategory.background || viewingCategory.image,
+                      badge: viewingCategory.badge || '',
+                      atmosphereTheme: viewingCategory.atmosphereTheme || 'grill',
+                      displayOrder: viewingCategory.displayOrder,
+                      active: viewingCategory.active,
+                    });
+                    setIsNewCategoryModalOpen(true);
+                  }}
+                  className="px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm font-['Cairo'] shadow-lg flex items-center gap-2 transition shrink-0"
+                >
+                  <Edit3 className="w-4 h-4" />
+                  <span>{language === 'ar' ? 'تعديل القسم' : 'Edit Category'}</span>
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-black font-['Cairo'] text-stone-100">
+                  {language === 'ar' ? 'أصناف هذا القسم' : 'Items in this category'}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setProductForm({
+                      name: '',
+                      nameEn: '',
+                      description: '',
+                      descriptionEn: '',
+                      price: 200,
+                      image: PRESET_FOOD_IMAGES[0].url,
+                      categoryId: viewingCategory.id,
+                      available: true,
+                      isBest: false,
+                      tag: 'جديد',
+                      prepTime: '15-20 دقيقة',
+                      calories: 600,
+                    });
+                    setIsNewProductModalOpen(true);
+                  }}
+                  className="px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm font-['Cairo'] shadow-lg flex items-center gap-2 transition"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>{language === 'ar' ? 'إضافة صنف لهذا القسم' : 'Add Item'}</span>
+                </button>
+              </div>
+
+              <div className="rounded-3xl bg-stone-900 border border-stone-800 overflow-hidden shadow-xl">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-start">
+                    <thead className="bg-stone-950 text-stone-400 uppercase font-bold border-b border-stone-800">
+                      <tr>
+                        <th className="p-4 text-start">{language === 'ar' ? 'الصورة' : 'Image'}</th>
+                        <th className="p-4 text-start">{language === 'ar' ? 'اسم الصنف' : 'Name'}</th>
+                        <th className="p-4 text-start">{language === 'ar' ? 'السعر' : 'Price'}</th>
+                        <th className="p-4 text-center">{language === 'ar' ? 'مميز / Best' : 'Best'}</th>
+                        <th className="p-4 text-center">{language === 'ar' ? 'الحالة' : 'Status'}</th>
+                        <th className="p-4 text-end">{language === 'ar' ? 'إجراءات' : 'Actions'}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-stone-800/60 font-['Cairo']">
+                      {categoryProducts.length === 0 && (
+                        <tr>
+                          <td colSpan={6} className="p-8 text-center text-stone-500">
+                            {language === 'ar' ? 'لا يوجد أصناف في هذا القسم بعد.' : 'No items in this category yet.'}
+                          </td>
+                        </tr>
+                      )}
+                      {categoryProducts.map((p) => (
+                        <tr key={p.id} className="hover:bg-stone-800/40 transition">
+                          <td className="p-4">
+                            <img
+                              src={p.image}
+                              alt={p.name}
+                              referrerPolicy="no-referrer"
+                              className="w-12 h-12 rounded-xl object-cover border border-stone-700"
+                            />
+                          </td>
+                          <td className="p-4">
+                            <div className="font-bold text-stone-100 text-sm">{p.name}</div>
+                            {p.nameEn && <div className="text-[10px] text-stone-400 font-['Outfit']">{p.nameEn}</div>}
+                            {p.tag && (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold mt-1 inline-block">
+                                {p.tag}
+                              </span>
+                            )}
+                          </td>
+                          <td className="p-4 font-black text-amber-400 text-sm">{p.price} ج.م</td>
+                          <td className="p-4 text-center">
+                            <button
+                              type="button"
+                              onClick={() => toggleProductBest(p.id)}
+                              className={`p-1.5 rounded-lg border transition ${
+                                p.isBest
+                                  ? 'bg-amber-500/20 border-amber-400 text-amber-300'
+                                  : 'bg-stone-800 text-stone-500 border-stone-700'
+                              }`}
+                            >
+                              <Star className={`w-4 h-4 ${p.isBest ? 'fill-amber-400' : ''}`} />
+                            </button>
+                          </td>
+                          <td className="p-4 text-center">
+                            <button
+                              type="button"
+                              onClick={() => toggleProductAvailability(p.id)}
+                              className={`px-2.5 py-1 rounded-full text-[11px] font-bold border transition ${
+                                p.available
+                                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
+                                  : 'bg-rose-500/15 border-rose-500/40 text-rose-400'
+                              }`}
+                            >
+                              {p.available ? (language === 'ar' ? 'متاح' : 'Available') : (language === 'ar' ? 'غير متاح' : 'Unavailable')}
+                            </button>
+                          </td>
+                          <td className="p-4 text-end">
+                            <div className="flex items-center justify-end gap-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setEditingProduct(p);
+                                  setProductForm({
+                                    name: p.name,
+                                    nameEn: p.nameEn || '',
+                                    description: p.description,
+                                    descriptionEn: p.descriptionEn || '',
+                                    price: p.price,
+                                    image: p.image,
+                                    categoryId: p.categoryId,
+                                    available: p.available,
+                                    isBest: p.isBest,
+                                    tag: p.tag || '',
+                                    prepTime: p.prepTime || '',
+                                    calories: p.calories || 500,
+                                  });
+                                  setIsNewProductModalOpen(true);
+                                }}
+                                className="p-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 transition"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (confirm(`هل أنت متأكد من حذف الصنف "${p.name}"؟`)) {
+                                    deleteProduct(p.id);
+                                    showToast('تم حذف الصنف.');
+                                  }
+                                }}
+                                className="p-2 rounded-xl bg-rose-950/40 hover:bg-rose-900 text-rose-400 transition border border-rose-900"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // ============ شبكة كل الأقسام (الافتراضي) ============
+        return (
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <h2 className="text-xl font-black font-['Cairo'] text-stone-100">
@@ -840,7 +1049,10 @@ export const AdminDashboard: React.FC = () => {
             {categories.map((cat) => (
               <div
                 key={cat.id}
-                className="p-5 rounded-3xl bg-stone-900 border border-stone-800 space-y-4 relative overflow-hidden"
+                onClick={() => setViewingCategoryId(cat.id)}
+                role="button"
+                tabIndex={0}
+                className="p-5 rounded-3xl bg-stone-900 border border-stone-800 space-y-4 relative overflow-hidden cursor-pointer hover:border-amber-500/50 transition"
               >
                 <div className="flex items-center gap-3">
                   <img
@@ -870,7 +1082,8 @@ export const AdminDashboard: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setEditingCategory(cat);
                         setCategoryForm({
                           name: cat.name,
@@ -892,7 +1105,8 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         if (confirm(`هل أنت متأكد من حذف القسم "${cat.name}"؟`)) {
                           deleteCategory(cat.id);
                           showToast('تم حذف القسم.');
@@ -908,7 +1122,8 @@ export const AdminDashboard: React.FC = () => {
             ))}
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* 4. SETTINGS & WHATSAPP MANAGEMENT TAB */}
       {activeTab === 'settings' && (
@@ -1610,3 +1825,4 @@ export const AdminDashboard: React.FC = () => {
     </div>
   );
 };
+
