@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://al-omda-6f4h.vercel.app/sitemap.xml
+Sitemap: https://al-omda0.vercel.app/sitemap.xml
