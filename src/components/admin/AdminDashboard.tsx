@@ -51,33 +51,33 @@ const PRESET_FOOD_IMAGES = [
   { name: 'مقبلات وسلطات طازجة', url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80' },
 ];
 
-// صورتان مخصصتان لكل صنف بعينه (تظهر في لوحة الإدارة كأول اختيارين سريعين لهذا الصنف تحديداً)
+// صورتان مخصصتان لكل صنف بعينه (احتياطي إضافي لأصناف البيانات التجريبية الأصلية)
 const PRODUCT_IMAGE_MAP: Record<string, { name: string; url: string }[]> = {
-  'prod-grill-1': [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]], // ريش ضاني مشوية
-  'prod-grill-2': [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[2]], // طرب العمدة الملوكي
-  'prod-grill-3': [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[0]], // كباب وكفتة ضاني مشكل
-  'prod-grill-4': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[1]], // شيش طاووق
-  'prod-grill-5': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[6]], // فرخة كاملة مشوية
-  'prod-meal-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[2]], // وجبة ميكس جريل
-  'prod-meal-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]], // وجبة موزة ضاني
-  'prod-meal-3':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[8]], // وجبة كفتة حاتي
-  'prod-sand-1':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[5]], // سندوتش كفتة العمدة
-  'prod-sand-2':  [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[4]], // سندوتش طرب ضاني
-  'prod-sand-3':  [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[4]], // سندوتش كباب بتلو
-  'prod-sand-4':  [PRESET_FOOD_IMAGES[5], PRESET_FOOD_IMAGES[4]], // حواوشي بالجبنة
-  'prod-plat-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[0]], // صينية ملوك العمدة
-  'prod-plat-2':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[7]], // صينية الباشا
-  'prod-mix-1':   [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[3]], // ميكس جريل مكسيكانو
-  'prod-mix-2':   [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[6]], // ميكس السجق والكفتة
-  'prod-sett-1':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]], // طاجن لحمة بالعجين
-  'prod-sett-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طاجن عكاوي
-  'prod-sett-3':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طاجن ملوخية
-  'prod-add-1':   [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]], // أرز بسمتي فاخر
-  'prod-add-2':   [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[8]], // تشكيلة مقبلات العمدة
-  'prod-add-3':   [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]], // طبق ممبار بلدي
+  'prod-grill-1': [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]],
+  'prod-grill-2': [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[2]],
+  'prod-grill-3': [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[0]],
+  'prod-grill-4': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[1]],
+  'prod-grill-5': [PRESET_FOOD_IMAGES[3], PRESET_FOOD_IMAGES[6]],
+  'prod-meal-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[2]],
+  'prod-meal-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]],
+  'prod-meal-3':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[8]],
+  'prod-sand-1':  [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[5]],
+  'prod-sand-2':  [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[4]],
+  'prod-sand-3':  [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[4]],
+  'prod-sand-4':  [PRESET_FOOD_IMAGES[5], PRESET_FOOD_IMAGES[4]],
+  'prod-plat-1':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[0]],
+  'prod-plat-2':  [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[7]],
+  'prod-mix-1':   [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[3]],
+  'prod-mix-2':   [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[6]],
+  'prod-sett-1':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]],
+  'prod-sett-2':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]],
+  'prod-sett-3':  [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]],
+  'prod-add-1':   [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]],
+  'prod-add-2':   [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[8]],
+  'prod-add-3':   [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[9]],
 };
 
-// صورتان مقترحتان لكل قسم (تُستخدم كذلك عند إضافة صنف جديد لم يُحدَّد له صور مخصصة بعد)
+// صورتان مقترحتان لكل قسم (تُستخدم كاحتياطي لو اسم الصنف ماوضحش نوعه)
 const CATEGORY_IMAGE_MAP: Record<string, { name: string; url: string }[]> = {
   grills: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[1]],
   meals: [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]],
@@ -88,12 +88,120 @@ const CATEGORY_IMAGE_MAP: Record<string, { name: string; url: string }[]> = {
   additions: [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[9]],
 };
 
-// يرجّع أفضل صورتين مناسبتين للصنف الحالي: صور مخصصة للصنف نفسه لو موجودة،
-// وإلا صور القسم اللي الصنف تابع له، وإلا القائمة العامة كاحتياطي أخير
+// 🧠 مكتبة الصور الذكية حسب "نوع الطبق" الفعلي — الأهم في النظام:
+// بتقرأ اسم الصنف نفسه فور ما تفتح تعديل عليه (أو وانت بتكتب اسم صنف جديد) وتبحث عن أقرب
+// كلمات مفتاحية تدل على نوع الأكلة الحقيقي في المنيو، فتجيب صورتين مختلفتين تماماً تخصه هو.
+// الترتيب مهم: الكلمات الأكثر تحديداً (تندوري / تكا / شيش) قبل الكلمة العامة (فرخة) عشان متتلخبطش.
+const DISH_IMAGE_LIBRARY: { keywords: string[]; images: { name: string; url: string }[] }[] = [
+  {
+    keywords: ['تندوري'],
+    images: [
+      { name: 'فرخة تندوري', url: 'https://images.unsplash.com/photo-1616401616927-3c81de22dfa8?auto=format&fit=crop&w=800&q=80' },
+      { name: 'فرخة تندوري على الفحم', url: 'https://images.unsplash.com/photo-1623253458786-eac05e77be2b?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+  {
+    keywords: ['تكا'],
+    images: [
+      { name: 'فرخة تكا ع الفحم', url: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=800&q=80' },
+      { name: 'فرخة تكا مشوية', url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+  {
+    keywords: ['شيش'],
+    images: [
+      { name: 'فرخة شيش', url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80' },
+      { name: 'فرخة شيش على الفحم', url: 'https://images.unsplash.com/photo-1623253458786-eac05e77be2b?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+  {
+    keywords: ['فرخة', 'فراخ', 'دجاج', 'كتكوت', 'طاووق'],
+    images: [
+      { name: 'فرخة شوايه', url: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=800&q=80' },
+      { name: 'فرخة مشوية كاملة', url: 'https://images.unsplash.com/photo-1616401616927-3c81de22dfa8?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+  {
+    keywords: ['كبدة', 'كبده'],
+    images: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[7]],
+  },
+  {
+    keywords: ['حواوشي', 'سندوتش', 'ساندوتش', 'رغيف'],
+    images: [PRESET_FOOD_IMAGES[4], PRESET_FOOD_IMAGES[5]],
+  },
+  {
+    keywords: ['طرب'],
+    images: [PRESET_FOOD_IMAGES[1], PRESET_FOOD_IMAGES[2]],
+  },
+  {
+    keywords: ['كندوز', 'كباب', 'كفتة', 'بتلو'],
+    images: [PRESET_FOOD_IMAGES[2], PRESET_FOOD_IMAGES[1]],
+  },
+  {
+    keywords: ['ريش', 'ضاني', 'لحمة', 'لحم'],
+    images: [PRESET_FOOD_IMAGES[0], PRESET_FOOD_IMAGES[7]],
+  },
+  {
+    keywords: ['صينية', 'صواني', 'ميكس', 'مشكل'],
+    images: [PRESET_FOOD_IMAGES[6], PRESET_FOOD_IMAGES[2]],
+  },
+  {
+    keywords: ['طاجن', 'تسوية', 'عكاوي', 'ملوخية', 'موزة'],
+    images: [PRESET_FOOD_IMAGES[7], PRESET_FOOD_IMAGES[8]],
+  },
+  {
+    keywords: ['ارز', 'أرز', 'رز', 'بسمتي'],
+    images: [PRESET_FOOD_IMAGES[8], PRESET_FOOD_IMAGES[7]],
+  },
+  {
+    keywords: ['سلطة', 'سلاطة', 'خضار'],
+    images: [
+      { name: 'سلطة خضراء طازجة', url: 'https://images.unsplash.com/photo-1606757819934-d61a9f7279d5?auto=format&fit=crop&w=800&q=80' },
+      PRESET_FOOD_IMAGES[9],
+    ],
+  },
+  {
+    keywords: ['مقبلات', 'طحينة', 'مخلل', 'بابا غنوج', 'ممبار'],
+    images: [PRESET_FOOD_IMAGES[9], PRESET_FOOD_IMAGES[8]],
+  },
+  {
+    keywords: ['مياه', 'مية', 'ماء'],
+    images: [
+      { name: 'مياه معدنية', url: 'https://images.unsplash.com/photo-1561041695-d2fadf9f318c?auto=format&fit=crop&w=800&q=80' },
+      { name: 'زجاجة مياه', url: 'https://images.unsplash.com/photo-1617981291730-b989878620b8?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+  {
+    keywords: ['مشروب', 'عصير', 'غازية', 'كولا', 'بيبسي', 'سفن', 'كانز', 'فيوري', 'تويست'],
+    images: [
+      { name: 'مشروب غازي', url: 'https://images.unsplash.com/photo-1617981291730-b989878620b8?auto=format&fit=crop&w=800&q=80' },
+      { name: 'مياه معدنية', url: 'https://images.unsplash.com/photo-1561041695-d2fadf9f318c?auto=format&fit=crop&w=800&q=80' },
+    ],
+  },
+];
+
+// يبحث في اسم الصنف (عربي/إنجليزي) عن كلمات مفتاحية تدل على نوع الطبق، ويرجّع صورتيه المناسبتين
+const matchDishImages = (nameAr: string, nameEn: string = ''): { name: string; url: string }[] | null => {
+  const text = `${nameAr || ''} ${nameEn || ''}`;
+  for (const entry of DISH_IMAGE_LIBRARY) {
+    if (entry.keywords.some((kw) => text.includes(kw))) return entry.images;
+  }
+  return null;
+};
+
+// يرجّع أفضل صورتين مناسبتين للصنف الحالي بالترتيب التالي:
+// 1) تطابق ذكي مع اسم الصنف نفسه (يشتغل حتى للصنف الجديد وهو لسه بيتكتب)
+// 2) صور مخصصة مربوطة بمعرّف الصنف (لأصناف البيانات الأصلية)
+// 3) صور القسم اللي الصنف تابع له
+// 4) القائمة العامة كاحتياطي أخير
 const getProductImagePresets = (
-  productId: string | undefined,
-  categoryId: string
+  nameAr: string,
+  nameEn: string,
+  categoryId: string,
+  productId: string | undefined
 ): { name: string; url: string }[] => {
+  const smartMatch = matchDishImages(nameAr, nameEn);
+  if (smartMatch) return smartMatch;
   if (productId && PRODUCT_IMAGE_MAP[productId]) return PRODUCT_IMAGE_MAP[productId];
   if (CATEGORY_IMAGE_MAP[categoryId]) return CATEGORY_IMAGE_MAP[categoryId];
   return PRESET_FOOD_IMAGES;
@@ -1246,7 +1354,7 @@ export const AdminDashboard: React.FC = () => {
                 <div>
                   <span className="text-[11px] text-stone-400 block mb-1">صورتان مقترحتان لهذا الصنف تحديداً:</span>
                   <div className="flex gap-3 pb-1">
-                    {getProductImagePresets(editingProduct?.id, productForm.categoryId).map((preset, idx) => (
+                    {getProductImagePresets(productForm.name, productForm.nameEn, productForm.categoryId, editingProduct?.id).map((preset, idx) => (
                       <button
                         key={idx}
                         type="button"
@@ -1265,24 +1373,6 @@ export const AdminDashboard: React.FC = () => {
                       </button>
                     ))}
                   </div>
-                  <details className="mt-2">
-                    <summary className="text-[10px] text-stone-500 cursor-pointer">عرض كل الصور الجاهزة (احتياطي)</summary>
-                    <div className="flex gap-2 overflow-x-auto pb-1 pt-2">
-                      {PRESET_FOOD_IMAGES.map((preset, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => setProductForm({ ...productForm, image: preset.url })}
-                          title={preset.name}
-                          className={`relative shrink-0 w-12 h-12 rounded-xl overflow-hidden border transition ${
-                            productForm.image === preset.url ? 'border-amber-400 scale-105' : 'border-stone-700 opacity-60'
-                          }`}
-                        >
-                          <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  </details>
                 </div>
               </div>
 
@@ -1433,7 +1523,7 @@ export const AdminDashboard: React.FC = () => {
                 <div>
                   <span className="text-[11px] text-stone-400 block mb-1">أو اختر من الصورتين المقترحتين لهذا القسم:</span>
                   <div className="flex gap-3">
-                    {(CATEGORY_IMAGE_MAP[editingCategory?.id || ''] || PRESET_FOOD_IMAGES.slice(0, 2)).map((preset, idx) => (
+                    {(matchDishImages(categoryForm.name, categoryForm.nameEn) || CATEGORY_IMAGE_MAP[editingCategory?.id || ''] || PRESET_FOOD_IMAGES.slice(0, 2)).map((preset, idx) => (
                       <button
                         key={idx}
                         type="button"
